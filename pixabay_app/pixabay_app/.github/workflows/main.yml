@@ -3,13 +3,13 @@ name: Build & Publish Release APK
 on:
   push:
     tags:
-      - '*'
+      - 'Releasev1'
     branches:
       -master
 run-name: pixabay api app
 jobs:
   Gradle:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: checkout code
         uses: actions/checkout@v2
