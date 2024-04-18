@@ -1,12 +1,9 @@
-name: Build & Publish Release APK
-
 on:
   push:
-    tags:
-      - 'Releasev1'
     branches:
       - main
-run-name: pixabay api app
+
+name: Build & Publish Release APK
 jobs:
   build:
     name: build and release new apk
