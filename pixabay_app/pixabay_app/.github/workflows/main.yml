@@ -5,33 +5,32 @@ on:
     tags:
       - 'Releasev1'
     branches:
-      -master
+      -main
 run-name: pixabay api app
 jobs:
-  Gradle:
-    runs-on: windows-latest
+  build:
+    name: build and release new apk
+    runs-on: ubuntu-latest
     steps:
       - name: checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: setup jdk
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
+          distribution: 'zulu'
           java-version: 11
-      - name: Make Gradle executable
-        run: chmod +x ./gradlew
-      - name: Build Release APK
-        run: ./gradlew assembleRelease
-      - name: Releasing using Hub
-        uses: krishna/release-apk@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.token }}
-          APP_FOLDER: app
+
+#      - name: Releasing using Hub
+#        uses: krishna/release-apk@main
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.token }}
+#          APP_FOLDER: app
 
       - uses: subosito/flutter-action@v2
         with:
-          channel:stable
-      - run flutter pub get
-      - run flutter build apk --release --split-per-abi
+          channel:'stable'
+      - run: flutter pub get
+      - run: flutter build apk --release --split-per-abi
 
       - name: push to Releases
         uses: ncipollo/release-action@v1
