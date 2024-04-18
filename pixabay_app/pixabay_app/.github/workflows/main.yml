@@ -1,0 +1,41 @@
+name: Build & Publish Release APK
+
+on:
+  push:
+    tags:
+      - '*'
+    branches:
+      -master
+run-name: pixabay api app
+jobs:
+  Gradle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+      - name: setup jdk
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Make Gradle executable
+        run: chmod +x ./gradlew
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
+      - name: Releasing using Hub
+        uses: krishna/release-apk@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
+          APP_FOLDER: app
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel:stable
+      - run flutter pub get
+      - run flutter build apk --release --split-per-abi
+
+      - name: push to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/release/*"
+          tag: v0.0.1
+          token: ${{ secerets.token}}
