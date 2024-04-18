@@ -5,7 +5,7 @@ on:
     tags:
       - 'Releasev1'
     branches:
-      -main
+      - main
 run-name: pixabay api app
 jobs:
   build:
