@@ -15,6 +15,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: "3.2.2"
+          channel: 'stable'
 
 
       - run: flutter pub get
@@ -23,7 +24,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: release-apk
-          path: build/app/outputs/flutter-apk/release-apk.apk
+          path: pixabay_app/build/app/outputs/flutter-apk/release-apk.apk
 
 
 
