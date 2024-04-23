@@ -24,7 +24,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: release-apk
-          path: pixabay_app/build/app/outputs/flutter-apk/release-apk.apk
+          path: pixabay_app/pixabay_app/build/app/outputs/flutter-apk/release-apk.apk
 
 
 
